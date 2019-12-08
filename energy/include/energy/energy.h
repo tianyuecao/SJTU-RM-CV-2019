@@ -100,6 +100,8 @@ private:
 
     std::queue<float> recent_target_armor_centers;//记录最近一段时间的装甲板中心，用于判断大符还是小符
 
+    std::vector<std::vector<cv::Point>> _fan_contours;
+
 
     void initEnergy();//能量机关初始化
     void initEnergyPartParam();//能量机关参数初始化
