@@ -23,12 +23,12 @@ int Energy::findFans(const cv::Mat &src) {
     if (src.type() == CV_8UC3) {
         cvtColor(src_bin, src_bin, CV_BGR2GRAY);//若读取三通道视频文件，需转换为单通道
     }
-    std::vector<vector<Point> > fan_contours;
-    FanStruct(src_bin);//图像膨胀，防止图像断开并更方便寻找
+    //std::vector<vector<Point> > fan_contours;
+    FanStruct(src_bin);//图像膨胀，防止图像断开并更方便寻
     if (show_process)imshow("fan struct", src_bin);
-    findContours(src_bin, fan_contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
+    //findContours(src_bin, fan_contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
 
-    for (auto &fan_contour : fan_contours) {
+    for (auto &fan_contour : _fan_contours) {
         if (!isValidFanContour(src_bin, fan_contour)) {
             continue;
         }
@@ -141,14 +141,14 @@ bool Energy::findFlowStripFan(const cv::Mat &src) {
     if (src.type() == CV_8UC3) {
         cvtColor(src_bin, src_bin, CV_BGR2GRAY);//若读取三通道视频文件，需转换为单通道
     }
-    std::vector<vector<Point> > flow_strip_fan_contours;
+    // std::vector<vector<Point> > flow_strip_fan_contours;
     FlowStripFanStruct(src_bin);//图像膨胀，防止图像断开并更方便寻找
     if (show_process)imshow("flow strip fan struct", src_bin);
 
-    findContours(src_bin, flow_strip_fan_contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
+    //findContours(src_bin, fan_contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
     std::vector<cv::RotatedRect> candidate_flow_strip_fans;
 
-    for (auto &flow_strip_fan_contour : flow_strip_fan_contours) {
+    for (auto &flow_strip_fan_contour : _fan_contours) {
         if (!isValidFlowStripFanContour(src_bin, flow_strip_fan_contour)) {
             continue;
         }
